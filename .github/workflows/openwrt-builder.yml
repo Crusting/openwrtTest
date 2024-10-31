@@ -38,6 +38,21 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+    ###
+     - uses: actions/checkout@v3
+      - name: Install tmate
+        run: |
+          sudo apt update
+          sudo apt install tmate
+      - name: Start tmate server
+        run: tmate -S /tmp/tmate.sock
+      - name: Run some commands
+        run: |
+          echo "Hello from GitHub Actions!"
+          # ... other commands
+      - name: Display tmate server info
+        run: tmate -S /tmp/tmate.sock show -s
+    ###
     - name: Checkout
       uses: actions/checkout@main
 
