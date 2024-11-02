@@ -16,10 +16,11 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      ssh:
-        description: 'SSH connection to Actions'
+      debug_enabled:
+        type: boolean
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
         required: false
-        default: 'false'
+        default: false
 env:
   REPO_URL: https://github.com/hanwckf/immortalwrt-mt798x
   REPO_BRANCH: openwrt-21.02
@@ -37,10 +38,10 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v4
+    #- uses: actions/checkout@v4
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
-      if: ${{ inputs.debug_mode == 'true' }}
+      if: ${{ github.event_name == 'workflow_dispatch' && inputs.debug_enabled }}
 
     - name: Checkout
       uses: actions/checkout@main
