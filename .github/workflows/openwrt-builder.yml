@@ -19,8 +19,7 @@ on:
       ssh:
         description: 'SSH connection to Actions'
         required: false
-        default: 'true'
-
+        default: 'false'
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
@@ -39,9 +38,10 @@ jobs:
 
     steps:
     ###
-    #- uses: actions/checkout@v4
-    #- name: Setup tmate session
-    #  uses: mxschmitt/action-tmate@v3
+    - uses: actions/checkout@v4
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ inputs.debug_mode == 'true' }}
     ###
     - name: Checkout
       uses: actions/checkout@main
